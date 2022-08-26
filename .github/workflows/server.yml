@@ -1,0 +1,77 @@
+name: SDKSA Server Build
+
+on: 
+  push:
+  pull_request:
+    types: [opened, reopened]
+
+env:
+  SOLUTION_FILE_PATH: .
+  BUILD_CONFIGURATION: ServerRelease
+  BUILD_CONFIGURATION_D: ServerDebug
+  BUILD_CONFIGURATION_ARCH: x64
+jobs:
+  SDKSA_ServerRelease:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Update repo.
+      run: |
+        git submodule update --init --depth=1
+        
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=${{env.BUILD_CONFIGURATION_ARCH}} /p:PlatformTarget=${{env.BUILD_CONFIGURATION_ARCH}} ${{env.SOLUTION_FILE_PATH}}
+      
+    - name: Packaging
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: |
+        mkdir bin\win64
+        Copy-Item -Path ".\x64\${{env.BUILD_CONFIGURATION}}\*" -Destination ".\bin\win64\" -Recurse -Include *.lib   
+      
+    - uses: actions/upload-artifact@master
+      with:
+        name: sdksa_sr
+        path: .\bin
+
+  SDKSA_ServerDebug:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Update repo.
+      run: |
+        git submodule update --init --depth=1
+        
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION_D}} /p:Platform=${{env.BUILD_CONFIGURATION_ARCH}} /p:PlatformTarget=${{env.BUILD_CONFIGURATION_ARCH}} ${{env.SOLUTION_FILE_PATH}}
+      
+    - name: Packaging
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: |
+        mkdir bin\win64
+        Copy-Item -Path ".\x64\${{env.BUILD_CONFIGURATION_D}}\*" -Destination ".\bin\win64\" -Recurse -Include *.lib   
+      
+    - uses: actions/upload-artifact@master
+      with:
+        name: sdksa_sd
+        path: .\bin
+
