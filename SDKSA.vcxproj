@@ -148,25 +148,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AccessVoilationException.ixx" />
-    <ClCompile Include="Blip.ixx" />
     <ClCompile Include="Browser.ixx" />
-    <ClCompile Include="Checkpoint.ixx" />
+    <ClCompile Include="Entities.ixx" />
     <ClCompile Include="Entity.ixx" />
     <ClCompile Include="Exception.ixx" />
     <ClCompile Include="Fundamental.ixx" />
     <ClCompile Include="Game.ixx" />
     <ClCompile Include="GameObjectBrowser.ixx" />
     <ClCompile Include="InvalidArgumentException.ixx" />
-    <ClCompile Include="Object.ixx" />
     <ClCompile Include="OutOfRangeException.ixx" />
     <ClCompile Include="Physical.ixx" />
-    <ClCompile Include="Pickup.ixx" />
     <ClCompile Include="Placeable.ixx" />
-    <ClCompile Include="Player.ixx" />
     <ClCompile Include="RuntimeException.ixx" />
     <ClCompile Include="ScreenBrowser.ixx" />
     <ClCompile Include="Vector.ixx" />
-    <ClCompile Include="Vehicle.ixx" />
     <ClCompile Include="Version.ixx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

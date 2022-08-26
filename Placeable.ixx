@@ -65,7 +65,7 @@ export namespace TrilogyOnline
 #ifdef TRILOGY_ONLINE_SERVER
 			virtual void SetSyncingUserData(const UInt64 value) = 0;
 
-			virtual void SetWorldId(UInt64 value) = 0;
+			virtual void SetWorldId(const UInt64 value) = 0;
 
 			virtual UInt64 GetWorldId() const = 0;
 #endif

@@ -28,13 +28,13 @@ export namespace TrilogyOnline
 			public:
 				virtual ~CState() noexcept = default;
 
-				virtual void OnEvent(CGameObjectBrowser& gameObjectBrowser, const std::u16string_view eventName, const std::vector<std::unique_ptr<CMultiArgument>>& multiArguments) = 0;
+				virtual void OnEvent(CGameObjectBrowser& gameObjectBrowser, const std::u16string_view eventName, const std::vector<std::unique_ptr<CMultiArgument>>& multiArguments) { }
 
-				virtual void OnLoadStart(CGameObjectBrowser& gameObjectBrowser) = 0;
+				virtual void OnLoadStart(CGameObjectBrowser& gameObjectBrowser) { }
 
-				virtual void OnLoadEnd(CGameObjectBrowser& gameObjectBrowser, const Int32 httpStatusCode) = 0;
+				virtual void OnLoadEnd(CGameObjectBrowser& gameObjectBrowser, const Int32 httpStatusCode) { }
 
-				virtual void OnLoadError(CGameObjectBrowser& gameObjectBrowser, const std::u16string_view errorText, const std::u16string_view failedUrl) = 0;
+				virtual void OnLoadError(CGameObjectBrowser& gameObjectBrowser, const std::u16string_view errorText, const std::u16string_view failedUrl) { }
 			};
 
 			virtual void SetState(CState* const value) noexcept = 0;

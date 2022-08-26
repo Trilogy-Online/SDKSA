@@ -13,6 +13,6 @@ export namespace TrilogyOnline
 {
 	namespace API
 	{
-		constexpr auto Version = 1u;
+		constexpr auto Version = 2u;
 	}
 }

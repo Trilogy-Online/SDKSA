@@ -28,13 +28,13 @@ export namespace TrilogyOnline
 			public:
 				virtual ~CState() noexcept = default;
 
-				virtual void OnEvent(CScreenBrowser& screenBrowser, const std::u16string_view eventName, const std::vector<std::unique_ptr<CMultiArgument>>& multiArguments) = 0;
+				virtual void OnEvent(CScreenBrowser& screenBrowser, const std::u16string_view eventName, const std::vector<std::unique_ptr<CMultiArgument>>& multiArguments) { }
 
-				virtual void OnLoadStart(CScreenBrowser& screenBrowser) = 0;
+				virtual void OnLoadStart(CScreenBrowser& screenBrowser) { }
 
-				virtual void OnLoadEnd(CScreenBrowser& screenBrowser, const Int32 httpStatusCode) = 0;
+				virtual void OnLoadEnd(CScreenBrowser& screenBrowser, const Int32 httpStatusCode) { }
 
-				virtual void OnLoadError(CScreenBrowser& screenBrowser, const std::u16string_view errorText, const std::u16string_view failedUrl) = 0;
+				virtual void OnLoadError(CScreenBrowser& screenBrowser, const std::u16string_view errorText, const std::u16string_view failedUrl) { }
 			};
 
 			virtual void SetState(CState* const value) noexcept = 0;

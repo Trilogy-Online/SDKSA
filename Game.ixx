@@ -16,13 +16,8 @@ module;
 export module TrilogyOnline.SDK.Game;
 
 import TrilogyOnline.SDK.Fundamental;
-
-import TrilogyOnline.SDK.Blip;
-import TrilogyOnline.SDK.Checkpoint;
-import TrilogyOnline.SDK.Object;
-import TrilogyOnline.SDK.Pickup;
-import TrilogyOnline.SDK.Vehicle;
-
+import TrilogyOnline.SDK.Vector;
+import TrilogyOnline.SDK.Entities;
 import TrilogyOnline.SDK.Browser;
 import TrilogyOnline.SDK.ScreenBrowser;
 import TrilogyOnline.SDK.GameObjectBrowser;
@@ -40,47 +35,51 @@ export namespace TrilogyOnline
 				virtual ~CState() noexcept = default;
 
 #ifdef TRILOGY_ONLINE_CLIENT
-				virtual void OnMessageReceived(CGame& game, const Byte* const data, const NativeUInt size) = 0;
+				virtual void OnMessageReceived(CGame& game, const Byte* const data, const NativeUInt size) { }
 
-				virtual void OnGameThreadTick(CGame& game) = 0;
+				virtual void OnGameThreadTick(CGame& game) { }
 
-				virtual void OnRendererThreadTick(CGame& game) = 0;
+				virtual void OnRendererThreadTick(CGame& game) { }
 
-				virtual void OnConnected(CGame& game) = 0;
+				virtual void OnConnected(CGame& game) { }
 
-				virtual void OnDisconnected(CGame& game) = 0;
+				virtual void OnDisconnected(CGame& game) { }
 
-				virtual void OnRemoteBlipCreated(CGame& game, CBlip& blip) = 0;
+				virtual void OnRemoteBlipCreated(CGame& game, CBlip& blip) { }
 
-				virtual void OnRemoteBlipDestroyed(CGame& game, CBlip& blip) = 0;
+				virtual void OnRemoteBlipDestroyed(CGame& game, CBlip& blip) { }
 
-				virtual void OnRemoteCheckpointCreated(CGame& game, CCheckpoint& checkpoint) = 0;
+				virtual void OnRemoteCheckpointCreated(CGame& game, CCheckpoint& checkpoint) { }
 
-				virtual void OnRemoteCheckpointDestroyed(CGame& game, CCheckpoint& checkpoint) = 0;
+				virtual void OnRemoteCheckpointDestroyed(CGame& game, CCheckpoint& checkpoint) { }
 
-				virtual void OnRemoteObjectCreated(CGame& game, CObject& object) = 0;
+				virtual void OnRemoteObjectCreated(CGame& game, CObject& object) { }
 
-				virtual void OnRemoteObjectDestroyed(CGame& game, CObject& object) = 0;
+				virtual void OnRemoteObjectDestroyed(CGame& game, CObject& object) { }
 
-				virtual void OnRemotePickupCreated(CGame& game, CPickup& pickup) = 0;
+				virtual void OnRemotePickupCreated(CGame& game, CPickup& pickup) { }
 
-				virtual void OnRemotePickupDestroyed(CGame& game, CPickup& pickup) = 0;
+				virtual void OnRemotePickupDestroyed(CGame& game, CPickup& pickup) { }
 
-				virtual void OnRemotePlayerCreated(CGame& game, CPlayer& player) = 0;
+				virtual void OnRemotePlayerCreated(CGame& game, CPlayer& player) { }
 
-				virtual void OnRemotePlayerDestroyed(CGame& game, CPlayer& player) = 0;
+				virtual void OnRemotePlayerDestroyed(CGame& game, CPlayer& player) { }
 
-				virtual void OnRemoteVehicleCreated(CGame& game, CVehicle& vehicle) = 0;
+				virtual void OnRemoteVehicleCreated(CGame& game, CVehicle& vehicle) { }
 
-				virtual void OnRemoteVehicleDestroyed(CGame& game, CVehicle& vehicle) = 0;
+				virtual void OnRemoteVehicleDestroyed(CGame& game, CVehicle& vehicle) { }
+
+				virtual void OnKeyDown(CGame& game, const UInt8 key) { }
+
+				virtual void OnKeyUp(CGame& game, const UInt8 key) { }
 #endif
 
 #ifdef TRILOGY_ONLINE_SERVER
-				virtual void OnTick(CGame& game) = 0;
+				virtual void OnTick(CGame& game) { }
 
-				virtual void OnPlayerConnected(CGame& game, CPlayer& player) = 0;
+				virtual void OnPlayerConnected(CGame& game, CPlayer& player) { }
 
-				virtual void OnPlayerDisconnected(CGame& game, CPlayer& player) = 0;
+				virtual void OnPlayerDisconnected(CGame& game, CPlayer& player) { }
 #endif
 			};
 
@@ -222,11 +221,18 @@ export namespace TrilogyOnline
 			virtual CVector2DUInt32 GetWindowSize() const = 0;
 
 			[[nodiscard]]
-			virtual bool CalcScreenCoords(const CVector3DFloat& position, CVector3DFloat& screenCoords, float& width, float& height) const = 0;
+			virtual bool CalcScreenCoords(const CVector3DFloat& position, CVector3DFloat& screenCoords, float* const width, float* const height, const bool checkMaximumVisible, const bool checkMinimumVisible) const = 0;
 
 			virtual void RequestModel(const UInt32 modelId) = 0;
 
 			virtual void LoadAllRequestedModels() = 0;
+
+			virtual void ToggleEntryExitManager(const bool value) = 0;
+
+			[[nodiscard]]
+			virtual bool IsConnected() const = 0;
+
+			virtual void Disconnect() = 0;
 #endif
 
 #ifdef TRILOGY_ONLINE_SERVER

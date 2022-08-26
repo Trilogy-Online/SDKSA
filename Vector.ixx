@@ -340,13 +340,13 @@ export namespace TrilogyOnline
 			}
 
 			[[nodiscard]]
-			constexpr auto& operator[](NativeUInt index) noexcept
+			constexpr auto& operator[](const NativeUInt index) noexcept
 			{
 				return Components[index];
 			}
 
 			[[nodiscard]]
-			constexpr auto& operator[](NativeUInt index) const noexcept
+			constexpr auto& operator[](const NativeUInt index) const noexcept
 			{
 				return Components[index];
 			}
